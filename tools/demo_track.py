@@ -33,7 +33,7 @@ def make_parser():
     parser.add_argument("--camid", type=int, default=0, help="webcam demo camera id")
     parser.add_argument(
         "--save_result",
-        action="store_true",
+        default="true",
         help="whether to save the inference result of image/video",
     )
 
@@ -311,7 +311,7 @@ def main(exp, args):
 
     if args.trt:
         args.device = "gpu"
-    args.device = torch.device("cuda" if args.device == "gpu" else "cpu")
+    args.device = torch.device("cuda" if args.device == "gpu" else "cpu")    
 
     logger.info("Args: {}".format(args))
 
@@ -366,7 +366,8 @@ def main(exp, args):
 
 
 if __name__ == "__main__":
+
     args = make_parser().parse_args()
-    exp = get_exp(args.exp_file, args.name)
+    exp = get_exp(args.exp_file, args.name) 
 
     main(exp, args)
