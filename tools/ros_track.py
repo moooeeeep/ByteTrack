@@ -30,7 +30,8 @@ def make_parser():
         #"--path", default="./datasets/mot/train/MOT17-05-FRCNN/img1", help="path to images or video"
         "--path", default="./videos/palace.mp4", help="path to images or video"
     )
-    parser.add_argument("--camid", type=int, default=0, help="webcam demo camera id")
+    parser.add_argument(
+        "--camid", type=int, default=0, help="webcam demo camera id")
     parser.add_argument(
         "--save_result",
         default="true",
@@ -45,7 +46,8 @@ def make_parser():
         type=str,
         help="pls input your expriment description file",
     )
-    parser.add_argument("-c", "--ckpt", default=None, type=str, help="ckpt for eval")
+    parser.add_argument(
+        "-c", "--ckpt", default=None, type=str, help="ckpt for eval")
     parser.add_argument(
         "--device",
         default="gpu",
@@ -218,7 +220,7 @@ def image_demo(predictor, vis_folder, current_time, args):
             save_folder = osp.join(vis_folder, timestamp)
             os.makedirs(save_folder, exist_ok=True)
             cv2.imwrite(osp.join(save_folder, osp.basename(img_path)), online_im)
-
+        cv2.imshow("Trcke",result_image)
         if frame_id % 20 == 0:
             logger.info('Processing frame {} ({:.2f} fps)'.format(frame_id, 1. / max(1e-5, timer.average_time)))
 
@@ -287,6 +289,7 @@ def imageflow_demo(predictor, vis_folder, current_time, args):
             ch = cv2.waitKey(1)
             if ch == 27 or ch == ord("q") or ch == ord("Q"):
                 break
+            cv2.imshow("Trac",online_im)
         else:
             break
         frame_id += 1
@@ -364,10 +367,11 @@ def main(exp, args):
     elif args.demo == "video" or args.demo == "webcam":
         imageflow_demo(predictor, vis_folder, current_time, args)
 
-
 if __name__ == "__main__":
 
     args = make_parser().parse_args()
     exp = get_exp(args.exp_file, args.name) 
+    # torch.cuda.empty_cache()
+    # force_cudnn_initialization()
 
     main(exp, args)
