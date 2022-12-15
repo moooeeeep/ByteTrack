@@ -286,12 +286,12 @@ def main(exp, args):
     imageflow_demo(predictor, vis_folder, current_time, args)
 
 
-class ByteArgs(Enum):
+class ByteParams(Enum):
     '''
     The parametes needed for the ByteTracker and  YoloX detector
     '''
 
-    ##Detector(YoloX) arguments
+    ##Detector(YoloX) parameters
     exp_file="exps/example/mot/yolox_tiny_mix_det.py"
     ckpt="pretrained/bytetrack_ablation.pth.tar"
     camid=0
@@ -303,6 +303,19 @@ class ByteArgs(Enum):
     fps=30 # int frame rate
     fp16=False # Bool action="store_true", help="Adopting mix precision evaluating
     fuse=False # Bool  action="store_true",help="Fuse conv and bn for testing
+    trt=False # Bool  action="store_true", help="Using TensorRT model for testing
+
+
+    ##Tracking parameters
+    track_thresh=0.5 # help="tracking confidence threshold
+    track_buffer = 30 # the frames for keep lost tracks
+    match_thresh = 0.8 # matching threshold for tracking
+    aspect_ratio_thresh=1.6 # threshold for filtering out boxes of which aspect ratio are above the given value
+    min_box_area=10 # filter out tiny boxes
+    mot20=False # test mot20.
+
+
+
         
 
 if __name__ == "__main__":
@@ -311,7 +324,8 @@ if __name__ == "__main__":
     #  python3 tools/demo_track.py video -f exps/example/mot/yolox_x_mix_det.py -c pretrained/bytetrack_ablation.pth.tar --fp16 --fuse --device cpu
 
 
-    args = make_parser().parse_args()
+    # args = make_parser().parse_args()
+    args=ByteParams()
     parameters=None
 
     ##
