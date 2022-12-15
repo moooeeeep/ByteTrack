@@ -14,7 +14,15 @@ from yolox.tracking_utils.timer import Timer
 from enum import Enum
 
 
-
+########################################
+########################################
+##            Current State
+########################################
+##  - Stopped for now . Need to implement in a way that can load the argparser from a ros node
+##  - Easier of the the argparser was initiated which is used in all parts of
+##  2. 
+########################################
+########################################
 ########################################
 ########################################
 ##            TO DO
@@ -286,33 +294,38 @@ def main(exp, args):
     imageflow_demo(predictor, vis_folder, current_time, args)
 
 
-class ByteParams(Enum):
+class ByteParams():
     '''
     The parametes needed for the ByteTracker and  YoloX detector
     '''
 
-    ##Detector(YoloX) parameters
-    exp_file="exps/example/mot/yolox_tiny_mix_det.py"
-    ckpt="pretrained/bytetrack_ablation.pth.tar"
-    camid=0
-    save_result=False
-    device="gpu"
-    conf=None #Float test confidence
-    nms=None # Float test nms threshold
-    tsize=None # int test image size
-    fps=30 # int frame rate
-    fp16=False # Bool action="store_true", help="Adopting mix precision evaluating
-    fuse=False # Bool  action="store_true",help="Fuse conv and bn for testing
-    trt=False # Bool  action="store_true", help="Using TensorRT model for testing
+    def __init__(self) -> None:
+        ##def
+
+        ##Detector(YoloX) parameters
+        self.exp_file="exps/example/mot/yolox_tiny_mix_det.py"
+        self.ckpt="pretrained/bytetrack_ablation.pth.tar"
+        self.camid=0
+        self.save_result=False
+        self.device="gpu"
+        self.conf=None #Float test confidence
+        self.nms=None # Float test nms threshold
+        self.tsize=None # int test image size
+        self.fps=30 # int frame rate
+        self.fp16=False # Bool action="store_true", help="Adopting mix precision evaluating
+        self.fuse=False # Bool  action="store_true",help="Fuse conv and bn for testing
+        self.trt=False # Bool  action="store_true", help="Using TensorRT model for testing
 
 
-    ##Tracking parameters
-    track_thresh=0.5 # help="tracking confidence threshold
-    track_buffer = 30 # the frames for keep lost tracks
-    match_thresh = 0.8 # matching threshold for tracking
-    aspect_ratio_thresh=1.6 # threshold for filtering out boxes of which aspect ratio are above the given value
-    min_box_area=10 # filter out tiny boxes
-    mot20=False # test mot20.
+        ##Tracking parameters
+        self.track_thresh=0.5 # help="tracking confidence threshold
+        self.track_buffer = 30 # the frames for keep lost tracks
+        self.match_thresh = 0.8 # matching threshold for tracking
+        self.aspect_ratio_thresh=1.6 # threshold for filtering out boxes of which aspect ratio are above the given value
+        self.min_box_area=10 # filter out tiny boxes
+        self.mot20=False # test mot20.
+
+
 
 
 
