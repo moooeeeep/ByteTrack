@@ -3,10 +3,10 @@
 # Copyright (c) 2014-2021 Megvii Inc. All rights reserved.
 
 import numpy as np
-
+import pathlib
 import os
 
-__all__ = ["mkdir", "nms", "multiclass_nms", "demo_postprocess"]
+__all__ = ["mkdir", "nms", "multiclass_nms", "demo_postprocess","get_path"]
 
 
 def mkdir(path):
@@ -94,3 +94,7 @@ def demo_postprocess(outputs, img_size, p6=False):
     outputs[..., 2:4] = np.exp(outputs[..., 2:4]) * expanded_strides
 
     return outputs
+
+def get_path():
+
+    return pathlib.Path(__file__).parents[2].resolve()
